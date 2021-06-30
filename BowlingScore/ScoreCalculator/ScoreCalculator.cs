@@ -10,15 +10,15 @@ namespace BowlingScore.ScoreCalculator
         int frame = 0;
         ScoreViewModel scoreViewModel;
 
-        public bool ValidateInput(List<int> pins)
+        public async Task<bool> ValidateInput(List<int> pins)
         {
             int score;
             for (int i = 0; i < pins.Count; i += 2)
             {
                 if (pins[i] > 10 || (pins[i] < 10) && (pins[i] + pins[i + 1] > 10) || !int.TryParse(scoreViewModel.FrameProgressScores[frame - 1], out score))
-                    return false;
+                    return await Task.FromResult(false);
             }
-            return true;
+            return await Task.FromResult(true);
         }
 
         public async Task<ScoreViewModel> CalculateScore(List<int> pins)

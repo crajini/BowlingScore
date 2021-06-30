@@ -8,6 +8,6 @@ namespace BowlingScore.ScoreCalculator.Interface
     public interface IScore
     {
         Task<ScoreViewModel> CalculateScore(List<int> pinsDowned);
-        bool ValidateInput(List<int> pinsDowned);
+        Task<bool> ValidateInput(List<int> pinsDowned);
     }
 }

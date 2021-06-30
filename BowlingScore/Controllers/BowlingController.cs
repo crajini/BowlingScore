@@ -28,7 +28,7 @@ namespace BowlingScore.Controllers
             try
             {
 
-                if (_scoreCalculator.ValidateInput(model.PinsDowned))
+                if (await _scoreCalculator.ValidateInput(model.PinsDowned))
                     return await _scoreCalculator.CalculateScore(model.PinsDowned);
                 return BadRequest("Bad Request");
             }
