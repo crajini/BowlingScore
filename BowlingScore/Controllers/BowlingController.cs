@@ -21,8 +21,6 @@ namespace BowlingScore.Controllers
 
         // POST api/values
         [HttpPost("scores")]
-        [ProducesResponseType(statusCode:400)]
-        [ProducesResponseType(statusCode:200)]
         public async Task<ActionResult<ScoreViewModel>> Scores(RollingViewModel model)
         {
             try
