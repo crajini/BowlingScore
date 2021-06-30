@@ -10,6 +10,17 @@ namespace BowlingScore.ScoreCalculator
         int frame = 0;
         ScoreViewModel scoreViewModel;
 
+        public bool ValidateInput(List<int> pins)
+        {
+            int score;
+            for (int i = 0; i < pins.Count; i += 2)
+            {
+                if (pins[i] > 10 || (pins[i] < 10) && (pins[i] + pins[i + 1] > 10) || !int.TryParse(scoreViewModel.FrameProgressScores[frame - 1], out score))
+                    return false;
+            }
+            return true;
+        }
+
         public async Task<ScoreViewModel> CalculateScore(List<int> pins)
         {
             scoreViewModel = new ScoreViewModel();
@@ -59,6 +70,8 @@ namespace BowlingScore.ScoreCalculator
                     scoreViewModel.GameCompleted = true;
                     break;
                 }
+                if (i == pins.Count - 1)
+                    scoreViewModel.FrameProgressScores.Add("*");
             }
 
             return await Task.FromResult(scoreViewModel);
@@ -92,7 +105,7 @@ namespace BowlingScore.ScoreCalculator
             int score;
             if (frameIndex < 1)
                 return 0;
-            int.TryParse(scoreViewModel.FrameProgressScores[frame - 1], out score);            
+            int.TryParse(scoreViewModel.FrameProgressScores[frame - 1], out score);
             return score;
         }
     }

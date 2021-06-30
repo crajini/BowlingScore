@@ -21,18 +21,23 @@ namespace BowlingScore.Controllers
 
         // POST api/values
         [HttpPost("scores")]
-        public async Task<ScoreViewModel>  Scores(RollingViewModel model)
+        [ProducesResponseType(statusCode:400)]
+        [ProducesResponseType(statusCode:200)]
+        public async Task<ActionResult<ScoreViewModel>> Scores(RollingViewModel model)
         {
             try
             {
-                return await _scoreCalculator.CalculateScore(model.PinsDowned);
+
+                if (_scoreCalculator.ValidateInput(model.PinsDowned))
+                    return await _scoreCalculator.CalculateScore(model.PinsDowned);
+                return BadRequest("Bad Request");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
         }
 
-       
+
     }
 }

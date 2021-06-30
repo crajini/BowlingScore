@@ -41,8 +41,7 @@ namespace BowlingScore
             else
             {
                 app.UseHsts();
-            }
-
+            }            
             app.UseHttpsRedirection();
             app.UseMvc();
             app.UseSwagger();
